@@ -8,8 +8,20 @@ const bodyParser = require("body-parser");
 const path = require("path");
 dotenv.config();
 const app = express();
-app.use(cors({
-    origin: 'https://game-pi-self.vercel.app/',
+// Allow multiple specific origins
+const allowedOrigins = [
+    'https://gaming-hub2.vercel.app',
+    'https://game-pi-self.vercel.app'
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true
   }));
