@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Login/Signup</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #001f3f, #001233), url('https://example.com/futuristic-buildings.jpg');
+            background-size: cover;
+            background-image: url('neon2.jpg');
+            background-position: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 16px;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            max-width: 400px;
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #00bcd4;
+        }
+
+        .container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: #001f3f;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #00bcd4;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .container button:hover {
+            background: #008ba3;
+        }
+
+        .container p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .container a {
+            color: #00bcd4;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .container a:hover {
+            color: #008ba3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to GameHub</h1>
+        <form action="#" method="POST" id="loginForm">
+            <input type="text" name="username" id="username" placeholder="Username" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+    <script defer>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const response = await fetch("https://game-u53f.onrender.com/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.message);
+
+            // Store token and username in localStorage
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("username", data.username);
+
+            alert("Login successful!");
+            window.location.href = "home.html"; // Redirect to home page
+
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    </script>
+    
+    
+        
+</body>
+</html>
