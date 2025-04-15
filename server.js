@@ -8,7 +8,11 @@ const bodyParser = require("body-parser");
 const path = require("path");
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true
+  }));
 app.use(bodyParser.json()); 
 
 app.use(express.json());  // Correct Middleware
